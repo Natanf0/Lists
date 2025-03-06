@@ -28,7 +28,7 @@ public class ArrayImp<T extends Node<T>> implements Array<T> {
         if(node.getID()<0){throw new InvalidIDException("Invalid ID. Should be positive number");}
 
         int index; // Se o objeto existir no array, retorna seu índice. Se não, retorna o índice (negativo) referente a posição onde seve ser inserido um novo objeto
-        for(index = 0; nodes[index] != null && index <= size; index++){
+        for(index = 0; nodes[index] != null && index < size-1; index++){
             if(nodes[index].equals(node)){ break; } // Encontrou!
         }
 
@@ -46,8 +46,8 @@ public class ArrayImp<T extends Node<T>> implements Array<T> {
         int index = 0;
         try {
             index = busca(node);
-            if(index>0){throw new AlreadyExistsException("node already exists");}
-            if(index==size){throw new OverFlowException("Full");}
+            if(index==size-1){throw new OverFlowException("Full");}
+            if(index>=0){throw new AlreadyExistsException("node already exists");}
         }catch(NotFoundException nfe){
             index = nfe.getIndex()*(-1); // Se não encontrar, calcula o índice a inserir
         }catch(EmptyListException ignore){
